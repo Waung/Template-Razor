@@ -1,0 +1,129 @@
+﻿@page
+@namespace appglobal
+@model baseModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  @await Html.PartialAsync("page_header.cshtml")
+  <!-- vertical menu -->
+  <link rel="stylesheet" href="~/main/library/app-assets/css/core/menu/menu-types/vertical-menu.min.css" />
+</head>
+<body class="vertical-layout vertical-menu 2-columns fixed-navbar  menu-expanded pace-done" data-open="click" data-menu="vertical-menu" data-col="2-columns">
+  <!-- fixed-top-->
+  <nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-light navbar-border navbar-shadow">
+    <div class="navbar-wrapper">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+          <li class="nav-item mobile-menu d-md-none mr-auto">
+            <a class="nav-link nav-menu-main menu-toggle hidden-xs is-active" href="#">
+              <i class="fa ft-menu font-large-1"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="navbar-brand" href=".">
+              <img class="" alt="Logo GLS" src="~/main/img/favicon-@{WriteLiteral(AppGlobal.get_system_trademark());}-32.png" style="height:45px">
+              <!--<h3 class="brand-text">Garuda Learning System</h3>-->
+            </a>
+          </li>
+          <li class="nav-item d-md-none">
+            <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="navbar-container content">
+        <div class="collapse navbar-collapse" id="navbar-mobile">
+          <ul class="nav navbar-nav mr-auto float-left">
+            <li class="nav-item d-none d-md-block">
+              <a class="nav-link nav-menu-main menu-toggle hidden-xs is-active" href="#"><i class="ft-menu"></i></a>
+            </li>
+            <li class="nav-item d-none d-md-block">
+              <a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <!-- load edit data sekolah from here -->
+                <i class="fa fa-university"></i>
+                <span id="nama_instansi">@{WriteLiteral(AppGlobal.get_nama_instansi());}</span>
+              </a>
+            </li>
+            <li class="nav-item d-none d-md-block">
+              <a class="nav-link" href="#">
+                <!-- load persiapan tahunan from here -->
+                <i class="fa fa-calendar-o"></i>
+                <span id="nama_instansi">@{WriteLiteral(AppGlobal.get_tahun_aktif());}</span>
+              </a>
+            </li>
+            <li class="nav-item d-none d-md-block">
+              <a class="nav-link" href="#">
+                <!-- load edit persiapan semester from here -->
+                <i class="fa fa-calendar-check-o"></i>
+                <span id="nama_instansi">@{WriteLiteral(AppGlobal.get_semester_aktif());}</span>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav float-right">
+            <li class="dropdown dropdown-user nav-item">
+              <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                <i class="ft-user"></i>
+                <span class="user-name">@User.Identity.Name</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><i class="ft-edit"></i> Edit profil pengguna</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item danger" href="#" onclick="logout()"><i class="ft-log-out"></i> Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  <div class="main-menu menu-fixed menu-light menu-shadow menu-accordion" data-scroll-to-active="true">
+    <div class="main-menu-content ps-container ps-theme-dark ps-active-y" data-ps-id="7476e165-f68a-4471-c64a-5b18132821cb">
+      <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+        <br />
+        @{
+          string menu = baseModel.create_menu_structure();
+          WriteLiteral(menu);
+        }
+      </ul>
+      <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div>
+      <div class="ps-scrollbar-y-rail" style="top: 0px; height: 643px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+    </div>
+  </div>
+  <div class="app-content content">
+    <div class="content-wrapper">
+      <div class="content-header row">
+        <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+          <h3 class="content-header-title mb-0 d-inline-block">
+            <span id="content_header">
+              <i class="fa fa-home"></i> Selamat Datang!
+            </span>
+          </h3>
+        </div>
+        <!-- main container for content header -->
+      </div>
+      <div class="content-body" id="content_body">
+        <!-- main container for content body -->
+        <img src="~/main/img/cover-anak-edt.jpg" style="width:100%" />
+      </div>
+    </div>
+  </div>
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  <footer class="footer footer-static footer-light navbar-border">
+    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+      <span class="float-md-left d-block d-md-inline-block">Copyright &copy 2018 <a class="text-bold-800 grey darken-2" href="http://garudalearning.com" target="_blank">Garuda Learning System </a>, All rights reserved. </span>
+    </p>
+  </footer>
+  <div id="logger" style="display:none">
+  </div>
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  @await Html.PartialAsync("page_footer.cshtml")
+</body>
+</html>

@@ -1,0 +1,9 @@
+﻿@page
+@using Microsoft.AspNetCore.Authentication;
+@using Microsoft.AspNetCore.Authentication.Cookies;
+@namespace lego_world.main
+@model logoutModel
+@{
+  await AuthenticationHttpContextExtensions.SignOutAsync(HttpContext, CookieAuthenticationDefaults.AuthenticationScheme);
+  Response.Redirect("login");
+}

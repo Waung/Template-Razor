@@ -1,0 +1,231 @@
+﻿@{string path = System.Web.HttpContext.Current.Request.Path; }
+
+<div class="row">
+  <div class="col-12">
+    <div class="card" id="table_area">
+      <div class="card-header alert-primary">
+        <h4 class="card-title">
+          Daftar Data
+          <span class="data_title"></span>
+        </h4>
+        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+        <div class="heading-elements">
+          <ul class="list-inline mb-0">
+            <li>
+              @if (ViewData["read-only"].Equals(false))
+              {
+                <a id="button_tambah_data" onclick="insert_display()"><i class="ft-plus"></i> Tambah Data</a>
+              }
+            </li>
+            <li>
+              <a onclick="reload_table()"><i class="ft-rotate-cw"></i></a>
+            </li>
+            <li>
+              <a data-action="expand"><i class="ft-maximize"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="table-responsive" id="table_area_content" style="padding:8px">
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="insert_area">
+      <div class="card-header alert-primary">
+        <h4 class="card-title">
+          Tambah Data
+          <span class="data_title"></span>
+        </h4>
+      </div>
+      <div class="card-content">
+        <form class="form form-horizontal" id="insert_area_content"></form>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary btn-sm" onclick="send_insert_data()"><i class="fa fa-save"></i> Simpan</button>
+        <button class="btn btn-primary btn-sm" onclick="table_display()"><i class="fa fa-times"></i> Batal</button>
+      </div>
+    </div>
+
+    <div class="card" id="edit_area">
+      <div class="card-header alert-primary">
+        <h4 class="card-title">
+          Ubah Data
+          <span class="data_title"></span>
+        </h4>
+      </div>
+      <div class="card-content">
+        <form class="form form-horizontal" id="edit_area_content"></form>
+        <input type="hidden" id="edit_id">
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary btn-sm" onclick="send_edit_data()"><i class="fa fa-save"></i> Simpan</button>
+        <button class="btn btn-primary btn-sm" onclick="table_display()"><i class="fa fa-times"></i> Batal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  path = '@{WriteLiteral(path);}';
+  token = '@Html.AntiForgeryToken()';
+</script>
+<script>
+  table_display();
+  $(".data_title").html($("#content_header").html());
+
+  function reload_table()
+  {
+    $("#table_area_content").load(path + "?f=table", function (response, status, xhr)
+    {
+      if (status == "success")
+      {
+        $("#table_area_content").append(token); //put antiforgerytoken here, after table body
+      }
+      else
+      {
+        notify(msg + xhr.status + " " + xhr.statusText, "danger");
+      }
+    });
+  }
+
+  function table_display()
+  {
+    $("#table_area").css("display", "block");
+    $("#insert_area").css("display", "none");
+    $("#insert_area_content").html(""); //normalize dom
+    $("#edit_area").css("display", "none");
+    $("#edit_area_content").html(""); //normalize dom
+    reload_table();
+  }
+
+  function insert_display()
+  {
+    $("#table_area").css("display", "none");
+    $("#insert_area").css("display", "block");
+    $("#edit_area").css("display", "none");
+    $("#insert_area_content").load(path + "?f=insert");
+  }
+
+  function edit_display(id)
+  {
+    $("#table_area").css("display", "none");
+    $("#insert_area").css("display", "none");
+    $("#edit_area").css("display", "block");
+    $("#edit_id").val(id);
+    $("#edit_area_content").load(path + "?f=edit&id=" + id);
+  }
+
+  $("#insert_area_content").submit(function ()
+  {
+    send_insert_data(); return false;
+  });
+
+  function send_insert_data()
+  {
+    invalid = validate_form("insert_area_content"); //trigger form validation
+    if (invalid == 0)
+    {
+      var form = $('#insert_area_content').get(0);
+      var form_data = new FormData(form);
+      form_data.append("__RequestVerificationToken", antiforgerytoken());
+      $.ajax({
+        url: path + '?f=insert_handler',
+        type: 'post',
+        dataType: 'json',
+        data: form_data,
+        contentType: false,
+        processData: false
+      }).done(function (result)
+      {
+        if (result.status === false)
+        {
+          alert('Request Failed', 'Maaf, proses penyimpanan data gagal \nMessage: ' + result.message, 'danger');
+        }
+        else
+        {
+          notify(result.message, 'success');
+          table_display();
+        }
+      }).fail(function (xhr, status, error)
+      {
+        alert('Request Failed', 'Maaf, proses penyimpanan data gagal \nMessage: ' + result.message, 'danger');
+      }).always(function ()
+      {
+      });
+    }
+  }
+
+  $("#edit_area_content").submit(function ()
+  {
+    send_edit_data(); return false;
+  });
+
+  function send_edit_data()
+  {
+    invalid = validate_form("edit_area_content"); //trigger form validation
+    if (invalid == 0)
+    {
+      var form = $('#edit_area_content').get(0);
+      var form_data = new FormData(form);
+      form_data.append("__RequestVerificationToken", antiforgerytoken());
+      $.ajax({
+        url: path + '?f=edit_handler',
+        type: 'post',
+        dataType: 'json',
+        data: form_data,
+        contentType: false,
+        processData: false
+      }).done(function (result)
+      {
+        if (result.status === false)
+        {
+          alert('Request Failed', 'Maaf, proses penyimpanan data gagal \nMessage: ' + result.message, 'danger');
+        }
+        else
+        {
+          notify(result.message, 'success');
+          table_display();
+        }
+      }).fail(function (xhr, status, error)
+      {
+        alert('Request Failed', 'Maaf, proses penyimpanan data gagal \nMessage: ' + result.message, 'danger');
+      }).always(function ()
+      {
+      });
+    }
+  }
+
+  function send_delete_data(id)
+  {
+    context = $("#content_header").children(".menu-title").html();
+    confirm("Hapus Data", "Apakah anda yakin akan menghapus data " + context + "?", delete_data_ajax, id);
+  }
+
+  function delete_data_ajax(id)
+  {
+    url = path + "?f=delete_handler&id=" + id;
+    ajax_json_request(url, null, delete_data_succeded, failed_ajax_request);
+  }
+
+  function delete_data_succeded()
+  {
+    context = $("#content_header").children(".menu-title").html();
+    notify("Hapus data " + context + " berhasil", 'success');
+    table_display();
+  }
+
+  //card heading actions buttons small screen support
+  //ported from app.js
+  $(".heading-elements-toggle").on("click", function ()
+  {
+    $(this).parent().children(".heading-elements").toggleClass("visible");
+  });
+
+  //update hidden input based on checkbox state
+  function toggle_update(name)
+  {
+    $("#" + name).val($("#" + name + "_area").is(":checked"));
+  }
+</script>

@@ -1,0 +1,63 @@
+﻿@page
+@namespace appglobal
+@using appglobal.models
+@model m_feature_groupModel
+@{
+  string f = Request.Query["f"];
+  gls_model _context = new gls_model(AppGlobal.get_db_option()); //simplifying context initializer by override
+  //check here the user level and set read-only property accordingly
+  ViewData["read-only"] = false;
+}
+@if (f == "base")
+{
+  @await Html.PartialAsync("../_template/crud_base.cshtml")
+}
+else if (f == "table")
+{
+  //create table view here
+  var table_data = _context.m_feature_group.ToList();
+
+  <table class='table table-xs table-condensed table-bordered' id='master_table'>
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th style='width:150px'>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var table_data_row in table_data)
+      {
+        //modify displayed action_button here
+        string action_button = "";
+        if (ViewData["read-only"].Equals(false))
+        {
+          action_button = crud_base.get_edit_button(table_data_row.m_feature_group_id) + crud_base.get_delete_button(table_data_row.m_feature_group_id);
+        }
+        <tr>
+          <td> @table_data_row.feature_group_name </td>
+          <td> @{WriteLiteral(action_button);} </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <script>
+    $("#master_table").dataTable(); //invoke dataTable here, put custom options here
+  </script>
+}
+else if (f == "insert")
+{
+  //create insert form here
+  string input_groups =
+    crud_base.get_input_group("feature_group_name", "Nama Feature Group", true, "text");
+  WriteLiteral(input_groups);
+}
+else if (f == "edit")
+{
+  //create edit form here
+  int id = Convert.ToInt32(Request.Query["id"]);
+  var feature_group = _context.m_feature_group.SingleOrDefault(e => e.m_feature_group_id == id); //get specific row based on id
+  string input_groups =
+    crud_base.get_input("m_feature_group_id", "hidden", id + "") + //id untuk update parameter
+    crud_base.get_input_group("feature_group_name", "Nama Feature Group", true, "text", feature_group.feature_group_name);
+  WriteLiteral(input_groups);
+}

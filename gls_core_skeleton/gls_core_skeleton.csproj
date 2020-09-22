@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="classes\access_handler.cs" />
+    <Compile Remove="classes\appglobal\FilterFeatureAccess.cs" />
+    <Compile Remove="classes\general_function.cs" />
+    <Compile Remove="classes\my_session.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.5.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedFileToPublish Include="main/**/*" Exclude="main/**/*.cs;main/**/*.cshtml">
+      <RelativePath>main\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+    </ResolvedFileToPublish>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="main\library\app-assets\vendors\bootstrap-switch\css\bootstrap-switch.css" />
+    <None Remove="main\library\app-assets\vendors\bootstrap-switch\css\bootstrap-switch.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedFileToPublish Remove="main\img\logo-idl-medium.png" />
+    <ResolvedFileToPublish Remove="main\img\logo-idl-small.png" />
+    <ResolvedFileToPublish Remove="main\library\app-assets\vendors\bootstrap-switch\css\bootstrap-switch.css" />
+    <ResolvedFileToPublish Remove="main\library\app-assets\vendors\bootstrap-switch\css\bootstrap-switch.min.css" />
+    <ResolvedFileToPublish Remove="main\library\app-assets\vendors\js\extensions\jquery.form.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="main\library\app-assets\vendors\bootstrap-switch\css\bootstrap-switch.css" />
+    <Content Include="main\library\app-assets\vendors\bootstrap-switch\css\bootstrap-switch.min.css" />
+    <Content Include="main\library\app-assets\vendors\datatable\datatables.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="model\gls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="main\notfound.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="main\page_footer.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="scope\akses\m_feature.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+</Project>

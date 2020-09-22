@@ -1,0 +1,190 @@
+﻿@page
+@namespace appglobal
+@model dashboardModel
+@{
+  var User = System.Web.HttpContext.Current.User;
+}
+
+
+<!--fitness stats-->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-3 col-lg-6 col-md-12 border-right-grey border-right-lighten-3 clearfix">
+              <div class="float-left pl-2">
+                <span class="grey darken-1 block">Age</span>
+                <span class="font-large-3 line-height-1 text-bold-300">25</span>
+              </div>
+              <div class="float-left mt-2">
+                <span class="grey darken-1 block">Years</span>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-12 border-right-grey border-right-lighten-3 clearfix">
+              <div class="float-left pl-2">
+                <span class="grey darken-1 block">Height</span>
+                <span class="font-large-3 line-height-1 text-bold-300">185</span>
+              </div>
+              <div class="float-left mt-2">
+                <span class="grey darken-1 block">cm</span>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-12 border-right-grey border-right-lighten-3 clearfix">
+              <div class="float-left pl-2">
+                <span class="grey darken-1 block">Weight</span>
+                <span class="font-large-3 line-height-1 text-bold-300">64</span>
+              </div>
+              <div class="float-left mt-2">
+                <span class="grey darken-1 block">Kg</span>
+                <span class="block"><i class="ft-arrow-down deep-orange accent-3"></i></span>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-12 clearfix">
+              <div class="float-left pl-2">
+                <span class="grey darken-1 block">Body mass index</span>
+                <span class="font-large-3 line-height-1 text-bold-300">22.3</span>
+              </div>
+              <div class="float-left mt-2">
+                <span class="grey darken-1 block">Kg/m</span>
+                <span class="block"><i class="ft-arrow-up success"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fitness stats-->
+<!-- activity charts -->
+<div class="row match-height">
+  <div class="col-xl-8 col-lg-12">
+    <div class="card" style="height: 378.867px;">
+      <div class="card-header no-border-bottom">
+        <h4 class="card-title">
+          Activity Chart
+          <span class="text-muted text-bold-400">Weekly</span>
+        </h4>
+        <a class="heading-elements-toggle"><i class="ft-more-horizontal font-medium-3"></i></a>
+        <div class="heading-elements">
+          <ul class="list-inline mb-0">
+            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <ul class="list-inline text-right m-0">
+            <li>
+              <h6><i class="ft-circle primary"></i> Runnig</h6>
+            </li>
+            <li class="ml-1">
+              <h6><i class="ft-circle success"></i> Walking</h6>
+            </li>
+            <li class="ml-1">
+              <h6><i class="ft-circle warning"></i> Cycling</h6>
+            </li>
+          </ul>
+          <div id="weekly-activity-chart" class="height-250" style="position: relative;">
+            <svg height="250" version="1.1" width="1015.6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: hidden; position: relative; left: -0.799988px; top: -0.200012px;"><desc>Created with Raphaël 2.1.2</desc><defs></defs><text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="36.5" y="211" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal"><tspan dy="4">0</tspan></text><path style="" fill="none" stroke="#e3e3e3" d="M49,211H990.6" stroke-width="0.5"></path><text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="36.5" y="173.8" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal"><tspan dy="3.999996948242199">80</tspan></text><path style="" fill="none" stroke="#e3e3e3" d="M49,173.8H990.6" stroke-width="0.5"></path><text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="36.5" y="136.6" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal"><tspan dy="3.9999938964843693">160</tspan></text><path style="" fill="none" stroke="#e3e3e3" d="M49,136.6H990.6" stroke-width="0.5"></path><text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="36.5" y="99.39999999999999" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal"><tspan dy="3.9999984741210852">240</tspan></text><path style="" fill="none" stroke="#e3e3e3" d="M49,99.39999999999999H990.6" stroke-width="0.5"></path><text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="36.5" y="62.19999999999999" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal"><tspan dy="3.9999992370605355">320</tspan></text><path style="" fill="none" stroke="#e3e3e3" d="M49,62.19999999999999H990.6" stroke-width="0.5"></path><text style="text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="36.5" y="25" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal"><tspan dy="4">400</tspan></text><path style="" fill="none" stroke="#e3e3e3" d="M49,25H990.6" stroke-width="0.5"></path><text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="944.8277777777778" y="223.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4">Sun</tspan></text><text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="787.8944444444445" y="223.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4">Sat</tspan></text><text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="630.9611111111111" y="223.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4">Fri</tspan></text><text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="474.02777777777777" y="223.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4">Thu</tspan></text><text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="317.09444444444443" y="223.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4">Wed</tspan></text><text style="text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" x="160.1611111111111" y="223.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4">Tue</tspan></text><path style="" fill="none" stroke="#f6bb42" d="M49,182.17C88.23333333333333,175.42749999999998,166.7,155.665,205.93333333333334,155.2C245.16666666666669,154.73499999999999,323.6333333333333,175.834375,362.8666666666667,178.45C402.1,181.06562499999998,480.5666666666666,177.86875,519.8,176.125C559.0333333333333,174.38125,637.5,164.790625,676.7333333333333,164.5C715.9666666666667,164.209375,794.4333333333334,173.21875,833.6666666666667,173.8C872.9000000000001,174.38125000000002,951.3666666666667,170.3125,990.6,169.15" stroke-width="3"></path><path style="" fill="none" stroke="#37bc9b" d="M49,192.4C88.23333333333333,173.8,166.7,121.778125,205.93333333333334,118C245.16666666666669,114.221875,323.6333333333333,159.26875,362.8666666666667,162.175C402.1,165.08125,480.5666666666666,151.13125,519.8,141.25C559.0333333333333,131.36875,637.5,93.296875,676.7333333333333,83.125C715.9666666666667,72.953125,794.4333333333334,51.44687499999999,833.6666666666667,59.875C872.9000000000001,68.303125,951.3666666666667,127.88125000000001,990.6,150.55" stroke-width="3"></path><path style="" fill="none" stroke="#967adc" d="M49,164.5C88.23333333333333,158.6875,166.7,147.0625,205.93333333333334,141.25C245.16666666666669,135.4375,323.6333333333333,116.546875,362.8666666666667,118C402.1,119.453125,480.5666666666666,149.96875,519.8,152.875C559.0333333333333,155.78125,637.5,145.609375,676.7333333333333,141.25C715.9666666666667,136.890625,794.4333333333334,124.39375,833.6666666666667,118C872.9000000000001,111.60625,951.3666666666667,97.07499999999999,990.6,90.1" stroke-width="3"></path><circle cx="49" cy="182.17" r="3" fill="#f6bb42" stroke="#f6bb42" style="" stroke-width="1"></circle><circle cx="205.93333333333334" cy="155.2" r="3" fill="#f6bb42" stroke="#f6bb42" style="" stroke-width="1"></circle><circle cx="362.8666666666667" cy="178.45" r="3" fill="#f6bb42" stroke="#f6bb42" style="" stroke-width="1"></circle><circle cx="519.8" cy="176.125" r="3" fill="#f6bb42" stroke="#f6bb42" style="" stroke-width="1"></circle><circle cx="676.7333333333333" cy="164.5" r="3" fill="#f6bb42" stroke="#f6bb42" style="" stroke-width="1"></circle><circle cx="833.6666666666667" cy="173.8" r="3" fill="#f6bb42" stroke="#f6bb42" style="" stroke-width="1"></circle><circle cx="990.6" cy="169.15" r="3" fill="#f6bb42" stroke="#f6bb42" style="" stroke-width="1"></circle><circle cx="49" cy="192.4" r="3" fill="#37bc9b" stroke="#37bc9b" style="" stroke-width="1"></circle><circle cx="205.93333333333334" cy="118" r="3" fill="#37bc9b" stroke="#37bc9b" style="" stroke-width="1"></circle><circle cx="362.8666666666667" cy="162.175" r="3" fill="#37bc9b" stroke="#37bc9b" style="" stroke-width="1"></circle><circle cx="519.8" cy="141.25" r="3" fill="#37bc9b" stroke="#37bc9b" style="" stroke-width="1"></circle><circle cx="676.7333333333333" cy="83.125" r="3" fill="#37bc9b" stroke="#37bc9b" style="" stroke-width="1"></circle><circle cx="833.6666666666667" cy="59.875" r="3" fill="#37bc9b" stroke="#37bc9b" style="" stroke-width="1"></circle><circle cx="990.6" cy="150.55" r="3" fill="#37bc9b" stroke="#37bc9b" style="" stroke-width="1"></circle><circle cx="49" cy="164.5" r="3" fill="#967adc" stroke="#967adc" style="" stroke-width="1"></circle><circle cx="205.93333333333334" cy="141.25" r="3" fill="#967adc" stroke="#967adc" style="" stroke-width="1"></circle><circle cx="362.8666666666667" cy="118" r="3" fill="#967adc" stroke="#967adc" style="" stroke-width="1"></circle><circle cx="519.8" cy="152.875" r="3" fill="#967adc" stroke="#967adc" style="" stroke-width="1"></circle><circle cx="676.7333333333333" cy="141.25" r="3" fill="#967adc" stroke="#967adc" style="" stroke-width="1"></circle><circle cx="833.6666666666667" cy="118" r="3" fill="#967adc" stroke="#967adc" style="" stroke-width="1"></circle><circle cx="990.6" cy="90.1" r="3" fill="#967adc" stroke="#967adc" style="" stroke-width="1"></circle></svg><div class="morris-hover morris-default-style" style="left: 0px; top: 53px; display: none;">
+              <div class="morris-hover-row-label">Mon Dec 05 2016 07:00:00 GMT+0700 (SE Asia Standard Time)</div><div class="morris-hover-point" style="color: #967ADC">
+                Running:
+                100
+              </div><div class="morris-hover-point" style="color: #37BC9B">
+                Walking:
+                40
+              </div><div class="morris-hover-point" style="color: #F6BB42">
+                Cycling:
+                62
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-12">
+    <div class="card" style="height: 378.867px;">
+      <div class="card-content mt-2">
+        <div class="card-body">
+          <div id="activity-division" class="height-250 echart-container" _echarts_instance_="1536220562720" style="-moz-user-select: none; background-color: rgba(0, 0, 0, 0);"><div style="position: relative; overflow: hidden; width: 472px; height: 250px;"><div style="position: absolute; left: 0px; top: 0px; width: 472px; height: 250px; -moz-user-select: none;" data-zr-dom-id="bg" class="zr-element"></div><canvas style="position: absolute; left: 0px; top: 0px; width: 472px; height: 250px; -moz-user-select: none;" width="472" height="250" data-zr-dom-id="0" class="zr-element"></canvas><canvas style="position: absolute; left: 0px; top: 0px; width: 472px; height: 250px; -moz-user-select: none;" width="472" height="250" data-zr-dom-id="_zrender_hover_" class="zr-element"></canvas></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ activity charts -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-3 col-sm-12 border-right-blue-grey border-right-lighten-5">
+              <div class="pb-1">
+                <div class="clearfix mb-1">
+                  <i class="ft-star font-large-1 blue-grey float-left mt-1"></i>
+                  <span class="font-large-2 text-bold-300 info float-right">5,879</span>
+                </div>
+                <div class="clearfix">
+                  <span class="text-muted">Products</span>
+                  <span class="info float-right"><i class="ft-arrow-up info"></i> 16.89%</span>
+                </div>
+              </div>
+              <div class="progress mb-0" style="height: 7px;">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 border-right-blue-grey border-right-lighten-5">
+              <div class="pb-1">
+                <div class="clearfix mb-1">
+                  <i class="ft-user font-large-1 blue-grey float-left mt-1"></i>
+                  <span class="font-large-2 text-bold-300 danger float-right">423</span>
+                </div>
+                <div class="clearfix">
+                  <span class="text-muted">Orders</span>
+                  <span class="danger float-right"><i class="ft-arrow-up danger"></i> 5.14%</span>
+                </div>
+              </div>
+              <div class="progress mb-0" style="height: 7px;">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 border-right-blue-grey border-right-lighten-5">
+              <div class="pb-1">
+                <div class="clearfix mb-1">
+                  <i class="ft-shuffle font-large-1 blue-grey float-left mt-1"></i>
+                  <span class="font-large-2 text-bold-300 success float-right">61%</span>
+                </div>
+                <div class="clearfix">
+                  <span class="text-muted">Conversion</span>
+                  <span class="success float-right"><i class="ft-arrow-down success"></i> 2.24%</span>
+                </div>
+              </div>
+              <div class="progress mb-0" style="height: 7px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+              <div class="pb-1">
+                <div class="clearfix mb-1">
+                  <i class="fa fa-money font-large-1 blue-grey float-left mt-1"></i>
+                  <span class="font-large-2 text-bold-300 warning float-right">$6,87M</span>
+                </div>
+                <div class="clearfix">
+                  <span class="text-muted">Profit</span>
+                  <span class="warning float-right"><i class="ft-arrow-up warning"></i> 43.84%</span>
+                </div>
+              </div>
+              <div class="progress mb-0" style="height: 7px;">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

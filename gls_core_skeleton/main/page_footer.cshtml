@@ -1,0 +1,228 @@
+﻿@using appglobal
+
+<!-- vendor js-->
+<script src="~/main/library/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
+<!-- app js -->
+<script src="~/main/library/app-assets/js/core/app.min.js" type="text/javascript"></script>
+<script src="~/main/library/app-assets/js/core/app-menu.min.js" type="text/javascript"></script>
+
+<!-- jsonformatter -->
+<script src="~/main/library/app-assets/vendors/jsonFormatter/jsonFormatter.min.js" type="text/javascript"></script>
+<!-- jquery-confirm -->
+<script src="~/main/library/app-assets/vendors/jquery-confirm/js/jquery-confirm.js" type="text/javascript"></script>
+
+<!-- extensions js -->
+<script src="~/main/library/app-assets/vendors/js/extensions/bootstrap-notify.min.js" type="text/javascript"></script>
+<script src="~/main/library/app-assets/vendors/js/extensions/jquery.form.js" type="text/javascript"></script>
+
+<!-- datatable -->
+<link rel="stylesheet" href="~/main/library/app-assets/vendors/datatable/datatables.min.css" />
+<script src="~/main/library/app-assets/vendors/datatable/datatables.min.js" type="text/javascript"></script>
+
+<!-- switch -->
+<link rel="stylesheet" href="~/main/library/app-assets/vendors/bootstrap-switch/css/bootstrap-switch.min.css" />
+<script src="~/main/library/app-assets/vendors/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+<script>
+  return_url = "@{WriteLiteral(ViewData["ReturnUrl"]);}";
+</script>
+<script>
+  //using jquery-alert to display alert
+  function alert(title, content, icon = "info")
+  {
+    type = "info";
+    if (icon == "danger")
+    {
+      icon = "fa fa-exclamation-triangle";
+      type = "red";
+    }
+    else if (icon == "info")
+    {
+      icon = "fa fa-info-circle";
+      type = "blue";
+    }
+    else if (icon == "warning")
+    {
+      icon = "fa fa-warning";
+      type = "orange";
+    }
+    $.confirm({
+      title: title,
+      content: content,
+      icon: icon,
+      theme: 'modern',
+      closeIcon: true,
+      animation: 'scale',
+      type: type,
+      buttons: {
+        ok: {
+          text: 'Ok',
+          btnClass: 'btn-blue'
+        }
+      }
+    });
+  }
+
+  //using jquery-alert to display confirm
+  function confirm(title, content, ok_action, id = null, icon = "fa fa-question-circle", delay = 5000)
+  {
+    $.confirm({
+      title: title,
+      content: content,
+      icon: icon,
+      theme: 'modern',
+      autoClose: 'cancelAction|' + delay,
+      escapeKey: 'cancelAction',
+      type: "red",
+      buttons: {
+        confirm: {
+          btnClass: 'btn-red',
+          text: 'Ya',
+          action: function ()
+          {
+            ok_action(id);
+          }
+        },
+        cancelAction: {
+          text: 'Tidak',
+          action: function ()
+          {
+          }
+        }
+      }
+    });
+  }
+
+  //display non obstrusive notification
+  function notify(message, type = "secondary", icon = "fa fa-info-circle", delay = 2000)
+  {
+    title = "Info: ";
+    $.notify({
+      // options
+      title: title,
+      icon: icon,
+      message: message
+    }, {
+        // settings
+        type: type,
+        delay: delay,
+        placement: {
+          from: "top",
+          align: "right"
+        },
+      });
+  }
+
+  //get antoforgery token native to .netcore
+  function antiforgerytoken()
+  {
+    return $("[name=__RequestVerificationToken]").val();
+  }
+
+  //simple ajax with json data wrapper
+  function ajax_json_request(request_url, request_parameter, success_function = "", fail_function = "")
+  {
+    $.ajax({
+      url: request_url,
+      type: 'post',
+      dataType: 'json',
+      data: {
+        __RequestVerificationToken: antiforgerytoken(),
+        request_parameter,
+      }
+    })
+      .done(function (result)
+      {
+        if (result.status)
+        {
+          success_function();
+        }
+        else
+        {
+          fail_function(result);
+        }
+      })
+      .fail(function (result)
+      {
+        fail_function(result);
+      });
+  }
+
+  //redirect document location
+  function url_redirect(location = "/")
+  {
+    location = location == "/" ? (return_url == "" ? "/" : return_url) : location;
+    document.location = location;
+  }
+
+  //format json for developer logging
+  function json_log(orginal_json)
+  {
+    $("#logger").html(message).jsonFormatter();
+    return $("#logger").html();
+  }
+
+  //display alert for failed ajax request
+  function failed_ajax_request(result)
+  {
+    alert("Request Failed", result.message, "danger");
+  }
+
+  //function for logout
+  function logout()
+  {
+    confirm("Logout", "Apakah anda yakin akan logout ?", logout_function);
+  }
+  function logout_function()
+  {
+    url_redirect("logout");
+  }
+
+  //switch the active tab with the click on menu nav
+  $('#main-menu-navigation').on('click', 'li a', function ()
+  {
+    if (!$(this).hasClass('active'))
+    {
+      $('#main-menu-navigation li').removeClass('active');
+      $(this).parent().addClass('active');
+      $("#content_header").html($(this).html());
+      feature_group_url = $(this).parent().data("feature_group_url");
+      feature_url = $(this).parent().data("feature_url");
+      load_content(feature_group_url, feature_url);
+      document.title = $(this).children(".menu-title").html();
+    }
+  })
+
+  //load the content with ajax
+  function load_content(feature_group_url, feature_url)
+  {
+    Pace.restart();
+    $("#content_body").load("scope/" + feature_group_url + "/" + feature_url + "?f=base", function (data)
+    {
+      notify("Loaded " + feature_group_url + "/" + feature_url);
+    });
+  }
+
+  //validate all input with cannot-null class on a form
+  function validate_form(form_id, message = "harus diisi!")
+  {
+    invalid = 0; //reset blank counter
+    $("#" + form_id + " .invalid-feedback").remove(); //remove all invalid tags
+    $("#" + form_id).find(".cannot-null").each(function ()
+    {
+      if ($(this).val().trim() == "" || $(this).val() == null)
+      {
+        notify($(this).attr("placeholder") + " " + message, "danger"); //display invalid input
+        $(this).addClass("is-invalid"); //make input with danger border
+        $(this).parent().append("<div class='invalid-feedback'><i class='fa fa-remove'></i> " + message + "</div>"); //add invalid tags
+        invalid++;
+      }
+      else
+      {
+        $(this).removeClass("is-invalid"); //remove danger border
+      }
+    });
+    console.log("invalid: " + invalid);
+    return invalid;
+  }
+</script>
